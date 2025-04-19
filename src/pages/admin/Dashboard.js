@@ -17,6 +17,14 @@ const AdminDashboard = () => {
     dispatch(fetchDashboardStats());
   }, [dispatch]);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
   const formatPrice = (price) => {
     return new Intl.NumberFormat('id-ID', {
       style: 'currency',

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProducts } from '../store/slices/productSlice';
 import api from '../utils/api';
 
 const Products = () => {
@@ -13,18 +12,17 @@ const Products = () => {
   const [successMessage, setSuccessMessage] = useState(null);
 
   useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await api.get('/api/products');
+        dispatch({ type: 'products/fetchProducts/fulfilled', payload: response.data });
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        setError('Failed to fetch products');
+      }
+    };
     fetchProducts();
   }, [dispatch]);
-
-  const fetchProducts = async () => {
-    try {
-      const response = await api.get('/api/products');
-      dispatch({ type: 'products/fetchProducts/fulfilled', payload: response.data });
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      setError('Failed to fetch products');
-    }
-  };
 
   const handleOrder = async (product) => {
     if (!isAuthenticated) {
@@ -51,6 +49,15 @@ const Products = () => {
       await api.post('/api/orders', orderData);
       setSuccessMessage(`Successfully ordered ${product.name}!`);
       // Refresh products to update stock
+      const fetchProducts = async () => {
+        try {
+          const response = await api.get('/api/products');
+          dispatch({ type: 'products/fetchProducts/fulfilled', payload: response.data });
+        } catch (error) {
+          console.error('Error fetching products:', error);
+          setError('Failed to fetch products');
+        }
+      };
       fetchProducts();
     } catch (error) {
       console.error('Error creating order:', error);
