@@ -59,7 +59,7 @@ const AdminProducts = () => {
   };
 
   const handleDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this product?')) {
+    if (window.confirm('Apakah Anda yakin ingin menghapus produk ini?')) {
       await dispatch(deleteProduct(id));
       dispatch(fetchProducts());
     }
@@ -71,16 +71,16 @@ const AdminProducts = () => {
 
     const fileExtension = file.name.split('.').pop().toLowerCase();
     if (!['xlsx', 'xls'].includes(fileExtension)) {
-      alert('Please upload an Excel file (.xlsx or .xls)');
+      alert('Silakan unggah file Excel (.xlsx atau .xls)');
       return;
     }
 
     try {
       await dispatch(importProducts(file));
       dispatch(fetchProducts());
-      alert('Products imported successfully!');
+      alert('Produk berhasil diimpor!');
     } catch (error) {
-      alert('Error importing products: ' + error.message);
+      alert('Gagal mengimpor produk: ' + error.message);
     } finally {
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
@@ -92,7 +92,7 @@ const AdminProducts = () => {
     <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg p-8 max-w-2xl w-full">
         <div className="flex justify-between items-start mb-4">
-          <h2 className="text-2xl font-bold">Excel Import Guide</h2>
+          <h2 className="text-2xl font-bold">Panduan Impor Excel</h2>
           <button
             onClick={() => setIsHelpModalOpen(false)}
             className="text-gray-500 hover:text-gray-700"
@@ -102,15 +102,15 @@ const AdminProducts = () => {
         </div>
         <div className="space-y-4">
           <div>
-            <h3 className="font-semibold text-lg mb-2">Excel File Format:</h3>
-            <p className="mb-2">Your Excel file must have these exact column headers in Row 1:</p>
+            <h3 className="font-semibold text-lg mb-2">Format File Excel:</h3>
+            <p className="mb-2">File Excel Anda harus memiliki judul kolom seperti di bawah ini di Baris 1:</p>
             <div className="bg-gray-100 p-4 rounded-md font-mono">
               name | description | price | stock
             </div>
           </div>
           
           <div>
-            <h3 className="font-semibold text-lg mb-2">Example Data:</h3>
+            <h3 className="font-semibold text-lg mb-2">Contoh Data:</h3>
             <div className="overflow-x-auto">
               <table className="min-w-full border border-gray-300">
                 <thead>
@@ -140,13 +140,13 @@ const AdminProducts = () => {
           </div>
 
           <div>
-            <h3 className="font-semibold text-lg mb-2">Important Notes:</h3>
+            <h3 className="font-semibold text-lg mb-2">Catatan Penting:</h3>
             <ul className="list-disc list-inside space-y-2">
-              <li>First row must contain the exact column headers shown above</li>
-              <li>Price should be a number (decimals allowed)</li>
-              <li>Stock should be a whole number</li>
-              <li>Save the file as .xlsx or .xls format</li>
-              <li>All columns are required</li>
+              <li>Baris pertama harus berisi judul kolom seperti di atas</li>
+              <li>Harga harus berupa angka (boleh desimal)</li>
+              <li>Stok harus berupa angka bulat</li>
+              <li>Simpan file dalam format .xlsx atau .xls</li>
+              <li>Semua kolom wajib diisi</li>
             </ul>
           </div>
         </div>
@@ -157,7 +157,7 @@ const AdminProducts = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Manage Products</h1>
+        <h1 className="text-3xl font-bold">Kelola Produk</h1>
         <div className="flex space-x-4">
           <input
             type="file"
@@ -170,13 +170,13 @@ const AdminProducts = () => {
             onClick={() => setIsHelpModalOpen(true)}
             className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
           >
-            Import Guide
+            Panduan Impor
           </button>
           <button
             onClick={() => fileInputRef.current?.click()}
             className="bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
           >
-            Import Excel
+            Impor Excel
           </button>
           <button
             onClick={() => {
@@ -186,7 +186,7 @@ const AdminProducts = () => {
             }}
             className="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700"
           >
-            Add Product
+            Tambah Produk
           </button>
         </div>
       </div>
@@ -201,24 +201,24 @@ const AdminProducts = () => {
         <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-gray-50">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stock</th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deskripsi</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Harga</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stok</th>
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {loading ? (
               <tr>
                 <td colSpan="5" className="px-6 py-4 text-center">
-                  Loading...
+                  Sedang memuat...
                 </td>
               </tr>
             ) : products.length === 0 ? (
               <tr>
                 <td colSpan="5" className="px-6 py-4 text-center text-gray-500">
-                  No products found
+                  Tidak ada produk ditemukan
                 </td>
               </tr>
             ) : (
@@ -226,7 +226,7 @@ const AdminProducts = () => {
                 <tr key={product._id}>
                   <td className="px-6 py-4 whitespace-nowrap">{product.name}</td>
                   <td className="px-6 py-4">{product.description}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">${product.price.toFixed(2)}</td>
+                  <td className="px-6 py-4 whitespace-nowrap">Rp {product.price.toFixed(2)}</td>
                   <td className="px-6 py-4 whitespace-nowrap">{product.stock}</td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <button
@@ -239,7 +239,7 @@ const AdminProducts = () => {
                       onClick={() => handleDelete(product._id)}
                       className="text-red-600 hover:text-red-900"
                     >
-                      Delete
+                      Hapus
                     </button>
                   </td>
                 </tr>
@@ -254,13 +254,13 @@ const AdminProducts = () => {
         <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex items-center justify-center">
           <div className="bg-white rounded-lg p-8 max-w-md w-full">
             <h2 className="text-2xl font-bold mb-6">
-              {editingProduct ? 'Edit Product' : 'Add Product'}
+              {editingProduct ? 'Edit Produk' : 'Tambah Produk'}
             </h2>
             <form onSubmit={handleSubmit}>
               <div className="space-y-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                    Name
+                    Nama
                   </label>
                   <input
                     type="text"
@@ -274,7 +274,7 @@ const AdminProducts = () => {
                 </div>
                 <div>
                   <label htmlFor="description" className="block text-sm font-medium text-gray-700">
-                    Description
+                    Deskripsi
                   </label>
                   <textarea
                     id="description"
@@ -288,7 +288,7 @@ const AdminProducts = () => {
                 </div>
                 <div>
                   <label htmlFor="price" className="block text-sm font-medium text-gray-700">
-                    Price
+                    Harga
                   </label>
                   <input
                     type="number"
@@ -304,7 +304,7 @@ const AdminProducts = () => {
                 </div>
                 <div>
                   <label htmlFor="stock" className="block text-sm font-medium text-gray-700">
-                    Stock
+                    Stok
                   </label>
                   <input
                     type="number"
@@ -324,13 +324,13 @@ const AdminProducts = () => {
                   onClick={() => setIsModalOpen(false)}
                   className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
                 >
-                  Cancel
+                  Batal
                 </button>
                 <button
                   type="submit"
                   className="bg-primary-600 border border-transparent rounded-md shadow-sm py-2 px-4 text-sm font-medium text-white hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
                 >
-                  {editingProduct ? 'Update' : 'Create'}
+                  {editingProduct ? 'Perbarui' : 'Buat'}
                 </button>
               </div>
             </form>

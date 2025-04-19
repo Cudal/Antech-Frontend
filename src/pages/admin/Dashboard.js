@@ -36,25 +36,25 @@ const AdminDashboard = () => {
 
   const statCards = [
     {
-      title: 'Total Products',
+      title: 'Total Produk',
       value: stats?.totalProducts || 0,
       icon: <ShoppingBagIcon className="h-8 w-8 text-blue-500" />,
       link: '/admin/products',
     },
     {
-      title: 'Total Orders',
+      title: 'Total Pesanan',
       value: stats?.totalOrders || 0,
       icon: <ShoppingCartIcon className="h-8 w-8 text-green-500" />,
       link: '/admin/orders',
     },
     {
-      title: 'Active Users',
+      title: 'Pengguna Aktif',
       value: stats?.activeUsers || 0,
       icon: <UsersIcon className="h-8 w-8 text-purple-500" />,
       link: '/admin/users',
     },
     {
-      title: 'Revenue',
+      title: 'Pendapatan',
       value: formatPrice(stats?.totalRevenue || 0),
       icon: <CurrencyDollarIcon className="h-8 w-8 text-yellow-500" />,
       link: '/admin/orders',
@@ -63,7 +63,7 @@ const AdminDashboard = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Admin Dashboard</h1>
+      <h1 className="text-3xl font-bold mb-8">Dasbor Admin</h1>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -87,49 +87,49 @@ const AdminDashboard = () => {
       {/* Quick Actions */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
+          <h2 className="text-xl font-semibold mb-4">Tindakan Cepat</h2>
           <div className="space-y-2">
             <Link
               to="/admin/products"
               className="block text-blue-600 hover:text-blue-800"
             >
-              Manage Products
+              Kelola Produk
             </Link>
             <Link
               to="/admin/orders"
               className="block text-blue-600 hover:text-blue-800"
             >
-              View Orders
+              Lihat Pesanan
             </Link>
             <Link
               to="/admin/users"
               className="block text-blue-600 hover:text-blue-800"
             >
-              Manage Users
+              Kelola Pengguna
             </Link>
           </div>
         </div>
 
         <div className="bg-white p-6 rounded-lg shadow-md">
-          <h2 className="text-xl font-semibold mb-4">Recent Orders</h2>
+          <h2 className="text-xl font-semibold mb-4">Pesanan Terbaru</h2>
           <div className="space-y-4">
             {stats?.recentOrders?.length > 0 ? (
               stats.recentOrders.map((order) => (
                 <div key={order._id} className="flex justify-between items-center">
                   <div>
-                    <p className="text-sm text-gray-600">Order #{order._id}</p>
+                    <p className="text-sm text-gray-600">Pesanan #{order._id}</p>
                     <p className="text-sm">{formatPrice(order.totalAmount)}</p>
                   </div>
                   <Link
                     to={`/admin/orders/${order._id}`}
                     className="text-blue-600 hover:text-blue-800"
                   >
-                    View
+                    Lihat
                   </Link>
                 </div>
               ))
             ) : (
-              <p className="text-gray-500">No recent orders</p>
+              <p className="text-gray-500">Tidak ada pesanan terbaru</p>
             )}
           </div>
         </div>
@@ -137,18 +137,18 @@ const AdminDashboard = () => {
 
       {/* System Status */}
       <div className="mt-8 bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-xl font-semibold mb-4">System Status</h2>
+        <h2 className="text-xl font-semibold mb-4">Status Sistem</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <p className="text-sm text-gray-600">Database Status</p>
-            <p className="text-green-500 font-medium">Connected</p>
+            <p className="text-sm text-gray-600">Status Database</p>
+            <p className="text-green-500 font-medium">Terhubung</p>
           </div>
           <div>
-            <p className="text-sm text-gray-600">API Status</p>
-            <p className="text-green-500 font-medium">Operational</p>
+            <p className="text-sm text-gray-600">Status API</p>
+            <p className="text-green-500 font-medium">Beroperasi</p>
           </div>
           <div>
-            <p className="text-sm text-gray-600">Last Updated</p>
+            <p className="text-sm text-gray-600">Terakhir Diperbarui</p>
             <p className="font-medium">
               {new Date().toLocaleTimeString()}
             </p>
@@ -159,4 +159,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard; 
+export default AdminDashboard;

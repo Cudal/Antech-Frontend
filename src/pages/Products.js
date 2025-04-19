@@ -18,7 +18,7 @@ const Products = () => {
         dispatch({ type: 'products/fetchProducts/fulfilled', payload: response.data });
       } catch (error) {
         console.error('Error fetching products:', error);
-        setError('Failed to fetch products');
+        setError('Gagal mengambil produk');
       }
     };
     fetchProducts();
@@ -47,7 +47,7 @@ const Products = () => {
       };
 
       await api.post('/api/orders', orderData);
-      setSuccessMessage(`Successfully ordered ${product.name}!`);
+      setSuccessMessage(`Berhasil memesan ${product.name}!`);
       // Refresh products to update stock
       const fetchProducts = async () => {
         try {
@@ -55,13 +55,13 @@ const Products = () => {
           dispatch({ type: 'products/fetchProducts/fulfilled', payload: response.data });
         } catch (error) {
           console.error('Error fetching products:', error);
-          setError('Failed to fetch products');
+          setError('Gagal mengambil produk');
         }
       };
       fetchProducts();
     } catch (error) {
       console.error('Error creating order:', error);
-      setError('Failed to create order. Please try again.');
+      setError('Gagal membuat pesanan. Silakan coba lagi.');
     }
   };
 
@@ -128,7 +128,7 @@ const Products = () => {
                           : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                       }`}
                     >
-                      Order Now
+                      Pesan Sekarang
                     </button>
                   )}
                 </div>

@@ -17,7 +17,7 @@ const Orders = () => {
       setOrders(response.data);
       setError(null);
     } catch (err) {
-      setError('Error fetching orders');
+      setError('Gagal mengambil pesanan');
       console.error('Error fetching orders:', err);
     } finally {
       setLoading(false);

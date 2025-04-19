@@ -19,7 +19,7 @@ const Navbar = () => {
 
   const getNavigation = () => {
     const baseLinks = [
-      { name: 'Products', href: '/products' },
+      { name: 'Produk', href: '/products' },
     ];
 
     if (!isAuthenticated) {
@@ -29,14 +29,14 @@ const Navbar = () => {
     if (user?.role === 'admin') {
       return [
         ...baseLinks,
-        { name: 'Manage Orders', href: '/admin/orders' },
-        { name: 'Admin Dashboard', href: '/admin' },
+        { name: 'Kelola Pesanan', href: '/admin/orders' },
+        { name: 'Dasbor Admin', href: '/admin' },
       ];
     }
 
     return [
       ...baseLinks,
-      { name: 'My Orders', href: '/orders' },
+      { name: 'Pesanan Saya', href: '/orders' },
     ];
   };
 
@@ -51,7 +51,7 @@ const Navbar = () => {
               <div className="flex">
                 <div className="flex flex-shrink-0 items-center">
                   <Link to="/" className="text-xl font-bold text-gray-900">
-                    Product Management
+                    ANTECH SOLUTION
                   </Link>
                 </div>
                 <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
@@ -75,7 +75,7 @@ const Navbar = () => {
                   <Menu as="div" className="relative ml-3">
                     <div>
                       <Menu.Button className="flex rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
-                        <span className="sr-only">Open user menu</span>
+                        <span className="sr-only">Buka menu pengguna</span>
                         <UserIcon className="h-6 w-6 text-gray-400" />
                       </Menu.Button>
                     </div>
@@ -96,7 +96,7 @@ const Navbar = () => {
                                 active ? 'bg-gray-100' : ''
                               } block w-full px-4 py-2 text-left text-sm text-gray-700`}
                             >
-                              Sign out
+                              Keluar
                             </button>
                           )}
                         </Menu.Item>
@@ -108,7 +108,7 @@ const Navbar = () => {
                     to="/login"
                     className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-700"
                   >
-                    Sign in
+                    Masuk
                   </Link>
                 )}
               </div>
@@ -117,7 +117,7 @@ const Navbar = () => {
                   className="inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary-500"
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 >
-                  <span className="sr-only">Open main menu</span>
+                  <span className="sr-only">Buka menu utama</span>
                   {open ? (
                     <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
                   ) : (
@@ -162,7 +162,7 @@ const Navbar = () => {
                     to="/login"
                     className="block w-full px-4 py-2 text-base font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-800"
                   >
-                    Sign in
+                    Masuk
                   </Disclosure.Button>
                 </div>
               )}

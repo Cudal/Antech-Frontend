@@ -151,7 +151,7 @@ const AdminOrders = () => {
                   Status
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Date
+                  Tanggal
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Actions
@@ -234,11 +234,11 @@ const AdminOrders = () => {
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-6 rounded-lg shadow-xl">
-            <h2 className="text-xl font-bold mb-4">Confirm Delete</h2>
+            <h2 className="text-xl font-bold mb-4">Konfirmasi Hapus</h2>
             <p className="mb-4">
               {orderToDelete === 'all' 
-                ? 'Are you sure you want to delete all orders?' 
-                : 'Are you sure you want to delete this order?'}
+                ? 'Apakah Anda yakin ingin menghapus semua pesanan?' 
+                : 'Apakah Anda yakin ingin menghapus pesanan ini?'}
             </p>
             <div className="flex justify-end gap-4">
               <button
@@ -248,14 +248,14 @@ const AdminOrders = () => {
                   setOrderToDelete(null);
                 }}
               >
-                Cancel
+                Batal
               </button>
               <button
                 className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
                 onClick={confirmDelete}
                 disabled={deleteLoading}
               >
-                {deleteLoading ? 'Deleting...' : 'Delete'}
+                {deleteLoading ? 'Menghapus...' : 'Hapus'}
               </button>
             </div>
           </div>

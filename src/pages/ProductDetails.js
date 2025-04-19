@@ -6,9 +6,9 @@ const ProductDetails = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">Product Details</h1>
+      <h1 className="text-3xl font-bold mb-8">Detail Produk</h1>
       <div className="bg-white rounded-lg shadow-md p-6">
-        <p>Product ID: {id}</p>
+        <p>ID Produk: {id}</p>
         {/* Product details will be added here */}
       </div>
     </div>
