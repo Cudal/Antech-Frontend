@@ -5,7 +5,7 @@ export const fetchDashboardStats = createAsyncThunk(
   'dashboard/fetchStats',
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await api.get('/admin/dashboard');
+      const { data } = await api.get('/api/admin/dashboard');
       return data;
     } catch (error) {
       return rejectWithValue(
