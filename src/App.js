@@ -100,9 +100,9 @@ const AppContent = () => {
         <RouteListener />
         <Routes>
           <Route path="/login" element={
-            isAuthenticated ? <Navigate to={lastRoute} /> : <Login />
+            isAuthenticated ? <Navigate to="/products" /> : <Login />
           } />
-          <Route path="/" element={<Navigate to="/products" />} />
+          <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<ProductDetails />} />
           <Route path="/orders" element={
@@ -135,7 +135,7 @@ const AppContent = () => {
               <AdminUsers />
             </ProtectedRoute>
           } />
-          <Route path="*" element={<Navigate to="/products" replace />} />
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
         <Footer />
       </div>
