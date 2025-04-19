@@ -47,7 +47,6 @@ const AppWrapper = () => {
 const AppContent = () => {
   const dispatch = useDispatch();
   const { isAuthenticated, user, loading } = useSelector((state) => state.auth);
-  const lastRoute = localStorage.getItem('lastRoute') || '/products';
 
   useEffect(() => {
     const token = localStorage.getItem('token');
