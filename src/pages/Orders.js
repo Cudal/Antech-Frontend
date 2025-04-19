@@ -37,14 +37,14 @@ const Orders = () => {
   if (loading) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="text-center">Loading orders...</div>
+        <div className="text-center">Memuat pesanan...</div>
       </div>
     );
   }
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8">My Orders</h1>
+      <h1 className="text-3xl font-bold mb-8">Pesanan Saya</h1>
       {error && (
         <div className="bg-red-50 text-red-700 p-4 rounded-md mb-4">
           {error}
@@ -53,7 +53,7 @@ const Orders = () => {
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
         {orders.length === 0 ? (
           <div className="text-center text-gray-500 p-6">
-            You have no orders yet
+            Anda belum memiliki pesanan
           </div>
         ) : (
           <div className="overflow-x-auto">
@@ -61,19 +61,19 @@ const Orders = () => {
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Order ID
+                    ID Pesanan
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Items
+                    Nama Item
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Total Amount
+                    Total
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Status
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date
+                    Tanggal
                   </th>
                 </tr>
               </thead>
@@ -87,7 +87,7 @@ const Orders = () => {
                       <ul className="list-disc list-inside">
                         {order.items.map((item, index) => (
                           <li key={index} className="text-sm text-gray-900">
-                            {item.product.name} x {item.quantity}
+                            {item.productDetails?.name || '-'} x {item.quantity}
                           </li>
                         ))}
                       </ul>
