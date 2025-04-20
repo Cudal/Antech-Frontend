@@ -16,11 +16,12 @@ export const createUser = createAsyncThunk(
   }
 );
 
+// Updated fetchUsers to support pagination
 export const fetchUsers = createAsyncThunk(
   'users/fetchAll',
-  async (_, { rejectWithValue }) => {
+  async ({ page = 1, limit = 10 } = {}, { rejectWithValue }) => {
     try {
-      const { data } = await api.get('/api/users');
+      const { data } = await api.get(`/api/users?page=${page}&limit=${limit}`);
       return data;
     } catch (error) {
       return rejectWithValue(
@@ -64,6 +65,9 @@ const userSlice = createSlice({
     users: [],
     loading: false,
     error: null,
+    total: 0,
+    page: 1,
+    limit: 10,
   },
   reducers: {
     clearErrors: (state) => {
@@ -92,7 +96,8 @@ const userSlice = createSlice({
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.loading = false;
-        state.users = action.payload;
+        state.users = action.payload.users;
+        state.total = action.payload.total;
       })
       .addCase(fetchUsers.rejected, (state, action) => {
         state.loading = false;

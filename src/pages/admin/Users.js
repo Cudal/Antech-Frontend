@@ -4,7 +4,7 @@ import { fetchUsers, updateUser, deleteUser, createUser } from '../../store/slic
 
 const AdminUsers = () => {
   const dispatch = useDispatch();
-  const { users, loading, error } = useSelector((state) => state.users);
+  const { users, loading, error, total, page, limit } = useSelector((state) => state.users);
   const [sortBy, setSortBy] = useState('date');
   const [sortOrder, setSortOrder] = useState('desc');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -14,10 +14,11 @@ const AdminUsers = () => {
     password: '',
     role: 'user'
   });
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
+    dispatch(fetchUsers({ page: currentPage, limit }));
+  }, [dispatch, currentPage, limit]);
 
   const handleInputChange = (e) => {
     setFormData({
@@ -108,7 +109,7 @@ const AdminUsers = () => {
       <div className="flex justify-between items-center mb-8">
         <div className="flex flex-col gap-1">
           <h1 className="text-3xl font-bold">Kelola Pengguna</h1>
-          <span className="text-gray-600 text-sm">Total Pengguna: {users ? users.length : 0}</span>
+          <span className="text-gray-600 text-sm">Total Pengguna: {total}</span>
         </div>
         <div className="flex gap-4">
           <button
@@ -197,6 +198,33 @@ const AdminUsers = () => {
             </tbody>
           </table>
         </div>
+      </div>
+
+      {/* Pagination Controls */}
+      <div className="flex justify-center mt-6 space-x-2">
+        <button
+          onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+          className="px-3 py-1 rounded bg-gray-200 disabled:opacity-50"
+        >
+          Prev
+        </button>
+        {Array.from({ length: Math.ceil(total / limit) }, (_, i) => (
+          <button
+            key={i + 1}
+            onClick={() => setCurrentPage(i + 1)}
+            className={`px-3 py-1 rounded ${currentPage === i + 1 ? 'bg-blue-600 text-white' : 'bg-gray-100'}`}
+          >
+            {i + 1}
+          </button>
+        ))}
+        <button
+          onClick={() => setCurrentPage((prev) => prev + 1)}
+          disabled={currentPage === Math.ceil(total / limit)}
+          className="px-3 py-1 rounded bg-gray-200 disabled:opacity-50"
+        >
+          Next
+        </button>
       </div>
 
       {/* Add/Edit User Modal */}
@@ -291,4 +319,4 @@ const AdminUsers = () => {
   );
 };
 
-export default AdminUsers; 
+export default AdminUsers;
