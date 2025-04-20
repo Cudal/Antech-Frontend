@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchDashboardStats } from '../../store/slices/dashboardSlice';
 import {
-  ShoppingBagIcon,
-  ShoppingCartIcon,
-  UsersIcon,
-  CurrencyDollarIcon,
+  UserGroupIcon,
+  CubeIcon,
+  ClipboardListIcon,
+  CurrencyRupiahIcon,
 } from '@heroicons/react/24/outline';
 
 const AdminDashboard = () => {
@@ -36,28 +36,28 @@ const AdminDashboard = () => {
 
   const statCards = [
     {
-      title: 'Total Produk',
+      name: 'Pengguna',
+      value: stats?.totalUsers || 0,
+      icon: UserGroupIcon,
+      color: 'bg-blue-100 text-blue-600',
+    },
+    {
+      name: 'Produk',
       value: stats?.totalProducts || 0,
-      icon: <ShoppingBagIcon className="h-8 w-8 text-blue-500" />,
-      link: '/admin/products',
+      icon: CubeIcon,
+      color: 'bg-green-100 text-green-600',
     },
     {
-      title: 'Total Pesanan',
+      name: 'Pesanan',
       value: stats?.totalOrders || 0,
-      icon: <ShoppingCartIcon className="h-8 w-8 text-green-500" />,
-      link: '/admin/orders',
+      icon: ClipboardListIcon,
+      color: 'bg-yellow-100 text-yellow-600',
     },
     {
-      title: 'Pengguna Aktif',
-      value: stats?.activeUsers || 0,
-      icon: <UsersIcon className="h-8 w-8 text-purple-500" />,
-      link: '/admin/users',
-    },
-    {
-      title: 'Pendapatan',
-      value: formatPrice(stats?.totalRevenue || 0),
-      icon: <CurrencyDollarIcon className="h-8 w-8 text-yellow-500" />,
-      link: '/admin/orders',
+      name: 'Pendapatan',
+      value: formatPrice(stats?.totalRevenue),
+      icon: CurrencyRupiahIcon,
+      color: 'bg-purple-100 text-purple-600',
     },
   ];
 
@@ -70,12 +70,12 @@ const AdminDashboard = () => {
         {statCards.map((stat, index) => (
           <Link
             key={index}
-            to={stat.link}
-            className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            to="/admin/orders"
+            className={`bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow ${stat.color}`}
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-600">{stat.title}</p>
+                <p className="text-sm text-gray-600">{stat.name}</p>
                 <p className="text-2xl font-semibold mt-2">{stat.value}</p>
               </div>
               {stat.icon}
