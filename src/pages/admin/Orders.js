@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllOrders, deleteOrder, deleteAllOrders } from '../../store/slices/orderSlice';
+import { fetchUsers } from '../../store/slices/userSlice';
 
 const AdminOrders = () => {
   const dispatch = useDispatch();
   const { orders, loading, error, deleteLoading } = useSelector((state) => state.orders);
+  const { users } = useSelector((state) => state.users);
   const [sortBy, setSortBy] = useState('date');
   const [sortOrder, setSortOrder] = useState('desc');
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [orderToDelete, setOrderToDelete] = useState(null);
+  const [selectedUser, setSelectedUser] = useState('');
 
   useEffect(() => {
-    dispatch(fetchAllOrders());
+    dispatch(fetchAllOrders(selectedUser ? { user: selectedUser } : undefined));
+  }, [dispatch, selectedUser]);
+
+  useEffect(() => {
+    dispatch(fetchUsers({ limit: 1000 })); // fetch all users for dropdown
   }, [dispatch]);
 
   const handleDeleteOrder = (orderId) => {
@@ -106,6 +113,17 @@ const AdminOrders = () => {
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Manage Orders</h1>
         <div className="flex gap-4">
+          {/* User Filter Dropdown */}
+          <select
+            className="border rounded-md px-3 py-2"
+            value={selectedUser}
+            onChange={e => setSelectedUser(e.target.value)}
+          >
+            <option value="">All Users</option>
+            {users && users.map(user => (
+              <option value={user._id} key={user._id}>{user.username}</option>
+            ))}
+          </select>
           <select
             className="border rounded-md px-3 py-2"
             value={`${sortBy}-${sortOrder}`}

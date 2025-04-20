@@ -32,20 +32,23 @@ export const fetchOrders = createAsyncThunk(
   }
 );
 
+// Fetch all orders, optionally filtered by user
 export const fetchAllOrders = createAsyncThunk(
   'orders/fetchAll',
-  async (_, { getState, rejectWithValue }) => {
+  async (params, { getState, rejectWithValue }) => {
     try {
       const token = getState().auth.token;
-      const { data } = await api.get('/api/orders', {
+      let url = '/api/orders';
+      if (params && params.user) {
+        url += `?user=${params.user}`;
+      }
+      const { data } = await api.get(url, {
         headers: { Authorization: `Bearer ${token}` }
       });
       return data;
     } catch (error) {
       return rejectWithValue(
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message
+        error.response?.data?.message || 'Error fetching orders'
       );
     }
   }
