@@ -42,7 +42,6 @@ const AdminUsers = () => {
       setIsModalOpen(false);
       setEditingUser(null);
       setFormData({ username: '', password: '', role: 'user' });
-      dispatch(fetchUsers());
     } catch (err) {
       console.error('Error saving user:', err);
     }
@@ -61,14 +60,12 @@ const AdminUsers = () => {
   const handleRoleChange = async (userId, newRole) => {
     if (window.confirm(`Are you sure you want to change this user's role to ${newRole}?`)) {
       await dispatch(updateUser({ id: userId, role: newRole }));
-      dispatch(fetchUsers());
     }
   };
 
   const handleDeleteUser = async (userId) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       await dispatch(deleteUser(userId));
-      dispatch(fetchUsers());
     }
   };
 
