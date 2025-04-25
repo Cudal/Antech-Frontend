@@ -4,7 +4,7 @@ import { fetchUsers, updateUser, deleteUser, createUser } from '../../store/slic
 
 const AdminUsers = () => {
   const dispatch = useDispatch();
-  const { users, loading, error, total, page, limit } = useSelector((state) => state.users);
+  const { users, loading, error, total, /* page, */ limit } = useSelector((state) => state.users);
   const [sortBy, setSortBy] = useState('date');
   const [sortOrder, setSortOrder] = useState('desc');
   const [isModalOpen, setIsModalOpen] = useState(false);
