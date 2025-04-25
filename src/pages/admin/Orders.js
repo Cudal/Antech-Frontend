@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllOrders, deleteOrder, deleteAllOrders } from '../../store/slices/orderSlice';
 import { fetchUsers } from '../../store/slices/userSlice';
+import OrdersSkeleton from './OrdersSkeleton'; // Import the OrdersSkeleton component
 
 const AdminOrders = () => {
   const dispatch = useDispatch();
@@ -94,22 +95,22 @@ const AdminOrders = () => {
 
   if (loading) {
     return (
-      <div className="container mx-auto px-4 py-8">
-        <div className="text-center">Loading orders...</div>
+      <div className="container mx-auto px-4 py-8 min-h-[600px] flex items-center justify-center">
+        <OrdersSkeleton />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 min-h-[600px] flex items-center justify-center">
         <div className="text-center text-red-600">Error: {error}</div>
       </div>
     );
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 min-h-[600px] flex flex-col">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-bold">Manage Orders</h1>
         <div className="flex gap-4">
