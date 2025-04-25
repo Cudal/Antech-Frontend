@@ -5,7 +5,7 @@ import { fetchDashboardStats } from '../../store/slices/dashboardSlice';
 import {
   UserGroupIcon,
   CubeIcon,
-  ClipboardListIcon,
+  ClipboardIcon,
   CurrencyRupiahIcon,
 } from '@heroicons/react/24/outline';
 
@@ -50,7 +50,7 @@ const AdminDashboard = () => {
     {
       name: 'Pesanan',
       value: stats?.totalOrders || 0,
-      icon: ClipboardListIcon,
+      icon: ClipboardIcon,
       color: 'bg-yellow-100 text-yellow-600',
     },
     {
