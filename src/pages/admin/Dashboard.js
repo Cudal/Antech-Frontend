@@ -6,7 +6,7 @@ import {
   UserGroupIcon,
   CubeIcon,
   ClipboardIcon,
-  CurrencyRupiahIcon,
+  BanknotesIcon,
 } from '@heroicons/react/24/outline';
 
 const AdminDashboard = () => {
@@ -56,7 +56,7 @@ const AdminDashboard = () => {
     {
       name: 'Pendapatan',
       value: formatPrice(stats?.totalRevenue),
-      icon: CurrencyRupiahIcon,
+      icon: BanknotesIcon,
       color: 'bg-purple-100 text-purple-600',
     },
   ];
