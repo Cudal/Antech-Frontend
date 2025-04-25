@@ -78,7 +78,7 @@ const AdminDashboard = () => {
                 <p className="text-sm text-gray-600">{stat.name}</p>
                 <p className="text-2xl font-semibold mt-2">{stat.value}</p>
               </div>
-              {stat.icon}
+              <stat.icon className="w-8 h-8" />
             </div>
           </Link>
         ))}
