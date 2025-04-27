@@ -24,10 +24,15 @@ const AdminDashboard = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    const BACKEND_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
     const fetchShowcase = async () => {
       try {
         const res = await api.get('/api/admin/showcase-image');
-        setShowcaseUrl(res.data.url);
+        if (res.data.url) {
+          setShowcaseUrl(res.data.url.startsWith('http') ? res.data.url : BACKEND_URL + res.data.url);
+        } else {
+          setShowcaseUrl(null);
+        }
       } catch (err) {
         setShowcaseUrl(null);
       }
@@ -185,7 +190,13 @@ const AdminDashboard = () => {
         <h2 className="text-xl font-semibold mb-4">Showcase Image (Current Sales)</h2>
         {showcaseUrl ? (
           <div className="mb-4 flex justify-center">
-            <img src={showcaseUrl} alt="Showcase" className="rounded-lg shadow-lg max-h-64 object-contain" />
+            <img
+              src={showcaseUrl}
+              alt="Showcase"
+              className="rounded-lg shadow-lg max-h-64 object-contain cursor-pointer transition-transform hover:scale-105"
+              onClick={() => window.open(showcaseUrl, '_blank')}
+              title="Click to preview full image"
+            />
           </div>
         ) : (
           <div className="mb-4 text-gray-500">No showcase image set</div>
