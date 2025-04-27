@@ -10,6 +10,7 @@ const Products = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+  const [orderingProductId, setOrderingProductId] = useState(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -29,7 +30,7 @@ const Products = () => {
       navigate('/login');
       return;
     }
-
+    setOrderingProductId(product._id);
     try {
       const orderData = {
         items: [{
@@ -62,6 +63,8 @@ const Products = () => {
     } catch (error) {
       console.error('Error creating order:', error);
       setError('Gagal membuat pesanan. Silakan coba lagi.');
+    } finally {
+      setOrderingProductId(null);
     }
   };
 
@@ -121,14 +124,14 @@ const Products = () => {
                   {user?.role !== 'admin' && (
                     <button
                       onClick={() => handleOrder(product)}
-                      disabled={product.stock === 0}
+                      disabled={product.stock === 0 || orderingProductId === product._id}
                       className={`py-2 rounded-md transition-colors duration-300 ${
                         product.stock > 0
                           ? 'bg-primary-600 text-white hover:bg-primary-700'
                           : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                       }`}
                     >
-                      Pesan Sekarang
+                      {orderingProductId === product._id ? 'Ordering...' : 'Pesan Sekarang'}
                     </button>
                   )}
                 </div>
