@@ -96,7 +96,13 @@ const Products = () => {
       <h1 className="text-3xl font-bold mb-8">Our Products</h1>
       {showcaseUrl && (
         <div className="mb-8 flex justify-center">
-          <img src={showcaseUrl} alt="Showcase" className="rounded-lg shadow-lg max-h-64 object-contain" />
+          <img
+            src={showcaseUrl}
+            alt="Showcase"
+            className="rounded-lg shadow-lg max-h-64 object-contain cursor-pointer transition-transform hover:scale-105"
+            onClick={() => window.open(showcaseUrl, '_blank')}
+            title="Click to preview full image"
+          />
         </div>
       )}
       {error && (
