@@ -14,9 +14,26 @@ const AdminDashboard = () => {
   const dispatch = useDispatch();
   const { stats, loading, error } = useSelector((state) => state.dashboard);
 
+  const [showcaseUrl, setShowcaseUrl] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [file, setFile] = useState(null);
+  const [uploadError, setUploadError] = useState(null);
+
   useEffect(() => {
     dispatch(fetchDashboardStats());
   }, [dispatch]);
+
+  useEffect(() => {
+    const fetchShowcase = async () => {
+      try {
+        const res = await api.get('/api/admin/showcase-image');
+        setShowcaseUrl(res.data.url);
+      } catch (err) {
+        setShowcaseUrl(null);
+      }
+    };
+    fetchShowcase();
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -61,24 +78,6 @@ const AdminDashboard = () => {
       color: 'bg-purple-100 text-purple-600',
     },
   ];
-
-  const [showcaseUrl, setShowcaseUrl] = useState(null);
-  const [uploading, setUploading] = useState(false);
-  const [file, setFile] = useState(null);
-  const [uploadError, setUploadError] = useState(null);
-
-  // Fetch showcase image
-  useEffect(() => {
-    const fetchShowcase = async () => {
-      try {
-        const res = await api.get('/api/admin/showcase-image');
-        setShowcaseUrl(res.data.url);
-      } catch (err) {
-        setShowcaseUrl(null);
-      }
-    };
-    fetchShowcase();
-  }, []);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
