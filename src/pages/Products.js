@@ -14,10 +14,15 @@ const Products = () => {
   const [showcaseUrl, setShowcaseUrl] = useState(null);
 
   useEffect(() => {
+    const BACKEND_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
     const fetchShowcase = async () => {
       try {
         const res = await api.get('/api/admin/showcase-image');
-        setShowcaseUrl(res.data.url);
+        if (res.data.url) {
+          setShowcaseUrl(res.data.url.startsWith('http') ? res.data.url : BACKEND_URL + res.data.url);
+        } else {
+          setShowcaseUrl(null);
+        }
       } catch (err) {
         setShowcaseUrl(null);
       }
