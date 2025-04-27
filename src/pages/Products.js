@@ -141,12 +141,7 @@ const Products = () => {
                   </span>
                 </div>
                 <div className="grid grid-cols-2 gap-2">
-                  <Link
-                    to={`/products/${product._id}`}
-                    className="text-center bg-gray-100 text-gray-700 py-2 rounded-md hover:bg-gray-200 transition-colors duration-300"
-                  >
-                    View Details
-                  </Link>
+                  {/* Removed View Details button as requested */}
                   {user?.role !== 'admin' && (
                     <button
                       onClick={() => handleOrder(product)}
