@@ -187,7 +187,7 @@ const AdminDashboard = () => {
 
       {/* Showcase Image Management */}
       <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-        <h2 className="text-xl font-semibold mb-4">Showcase Image (Current Sales)</h2>
+        <h2 className="text-xl font-semibold mb-4">Gambar Etalase (Penjualan Saat Ini)</h2>
         {showcaseUrl ? (
           <div className="mb-4 flex justify-center">
             <img
