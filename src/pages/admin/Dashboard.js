@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchDashboardStats } from '../../store/slices/dashboardSlice';
+import api from '../../utils/api';
 import {
   UserGroupIcon,
   CubeIcon,
@@ -60,6 +61,51 @@ const AdminDashboard = () => {
       color: 'bg-purple-100 text-purple-600',
     },
   ];
+
+  const [showcaseUrl, setShowcaseUrl] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [file, setFile] = useState(null);
+  const [uploadError, setUploadError] = useState(null);
+
+  // Fetch showcase image
+  useEffect(() => {
+    const fetchShowcase = async () => {
+      try {
+        const res = await api.get('/api/admin/showcase-image');
+        setShowcaseUrl(res.data.url);
+      } catch (err) {
+        setShowcaseUrl(null);
+      }
+    };
+    fetchShowcase();
+  }, []);
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+    setUploadError(null);
+  };
+
+  const handleUpload = async (e) => {
+    e.preventDefault();
+    if (!file) {
+      setUploadError('Please select an image file');
+      return;
+    }
+    setUploading(true);
+    setUploadError(null);
+    const formData = new FormData();
+    formData.append('image', file);
+    try {
+      const res = await api.post('/api/admin/showcase-image', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      setShowcaseUrl(res.data.url);
+      setFile(null);
+    } catch (err) {
+      setUploadError('Upload failed');
+    }
+    setUploading(false);
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -133,6 +179,23 @@ const AdminDashboard = () => {
             )}
           </div>
         </div>
+      </div>
+
+      {/* Showcase Image Management */}
+      <div className="bg-white p-6 rounded-lg shadow-md mb-8">
+        <h2 className="text-xl font-semibold mb-4">Showcase Image (Current Sales)</h2>
+        {showcaseUrl ? (
+          <div className="mb-4 flex justify-center">
+            <img src={showcaseUrl} alt="Showcase" className="rounded-lg shadow-lg max-h-64 object-contain" />
+          </div>
+        ) : (
+          <div className="mb-4 text-gray-500">No showcase image set</div>
+        )}
+        <form onSubmit={handleUpload} className="flex flex-col items-center">
+          <input type="file" accept="image/*" onChange={handleFileChange} className="mb-2" />
+          <button type="submit" className="bg-primary-600 text-white px-4 py-2 rounded-md" disabled={uploading}>{uploading ? 'Uploading...' : 'Upload/Change Image'}</button>
+        </form>
+        {uploadError && <div className="text-red-500 mt-2">{uploadError}</div>}
       </div>
 
       {/* System Status */}

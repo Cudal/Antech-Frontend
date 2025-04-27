@@ -11,8 +11,18 @@ const Products = () => {
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [orderingProductId, setOrderingProductId] = useState(null);
+  const [showcaseUrl, setShowcaseUrl] = useState(null);
 
   useEffect(() => {
+    const fetchShowcase = async () => {
+      try {
+        const res = await api.get('/api/admin/showcase-image');
+        setShowcaseUrl(res.data.url);
+      } catch (err) {
+        setShowcaseUrl(null);
+      }
+    };
+    fetchShowcase();
     const fetchProducts = async () => {
       try {
         const response = await api.get('/api/products');
@@ -79,6 +89,11 @@ const Products = () => {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">Our Products</h1>
+      {showcaseUrl && (
+        <div className="mb-8 flex justify-center">
+          <img src={showcaseUrl} alt="Showcase" className="rounded-lg shadow-lg max-h-64 object-contain" />
+        </div>
+      )}
       {error && (
         <div className="bg-red-50 text-red-700 p-4 rounded-md mb-4">
           {error}
